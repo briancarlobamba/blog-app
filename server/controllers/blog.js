@@ -263,7 +263,7 @@ module.exports.deleteComment = (req, res) => {
                 return res.status(404).send({ error: 'Comment not found' });
             }
 
-            if (comment.userId && comment.userId.toString() !== req.user.id && !req.user.isAdmin) {
+            if (!req.user || (comment.userId && comment.userId.toString() !== req.user.id && !req.user.isAdmin)) {
                 return res.status(403).send({ error: 'Not authorized to delete this comment' });
             }
 
@@ -279,3 +279,4 @@ module.exports.deleteComment = (req, res) => {
             return res.status(500).send({ error: 'Error in deleting comment' });
         });
 };
+
