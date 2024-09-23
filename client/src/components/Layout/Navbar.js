@@ -1,61 +1,67 @@
 import React, { useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 
 const Navbar = () => {
   const { user, logoutUser } = useContext(AuthContext);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleLogout = () => {
     logoutUser();
     navigate('/login');
   };
 
+  const isHomePage = location.pathname === '/';
+  const isNewPostPage = location.pathname === '/posts/new';
+  const isMyPostsPage = location.pathname === '/my-posts'; // Adjust this path based on your actual route
+
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top">
       <div className="container">
-        <Link className="navbar-brand" to="/posts">
+        <Link className="navbar-brand" to="/">
           Blog App
         </Link>
-        <div className="collapse navbar-collapse">
-          <ul className="navbar-nav ml-auto">
-            {user ? (
-              <>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/posts/new">
-                    New Blog
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/my-posts">My Blogs</Link>
-                </li>
-                <li className="nav-item">
-                  <span className="nav-link">Hello, {user.username}</span>
-                </li>
-                <li className="nav-item">
-                  <button
-                    className="btn btn-outline-danger"
-                    onClick={handleLogout}
-                  >
-                    Logout
-                  </button>
-                </li>
-              </>
-            ) : (
-              <>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/login">
-                    Login
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/register">
-                    Register
-                  </Link>
-                </li>
-              </>
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav me-auto">
+            {!isHomePage && (
+              <li className="nav-item">
+                <Link className="nav-link" to="/">
+                  Home
+                </Link>
+              </li>
+            )}
+            {user && !isMyPostsPage && (
+              <li className="nav-item">
+                <Link className="nav-link" to="/my-posts">
+                  My Posts
+                </Link>
+              </li>
             )}
           </ul>
+          <div className="d-flex">
+            {user && !isHomePage && !isNewPostPage && (
+              <Link className="nav-link text-success me-3" to="/posts/new">
+                + New Post
+              </Link>
+            )}
+            {user && (
+              <button className="btn btn-link nav-link text-danger" onClick={handleLogout}>
+                Logout
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </nav>

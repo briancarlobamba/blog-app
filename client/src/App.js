@@ -10,6 +10,7 @@ import MyBlogs from './components/Blog/MyBlogs'; // Import MyBlogs
 import PrivateRoute from './utils/PrivateRoute';
 import { AuthProvider } from './context/AuthContext';
 import { BlogProvider } from './context/BlogContext';
+import HomePage from './components/Auth/HomePage';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <BlogProvider>
           <Navbar />
           <Routes>
+            <Route path="/" element={<HomePage />} />
             <Route path="/posts" element={<BlogList />} />
             <Route path="/posts/:id" element={<BlogDetails />} />
             <Route path="/posts/new" element={<PrivateRoute><BlogForm /></PrivateRoute>} />

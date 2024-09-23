@@ -3,6 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { BlogContext } from '../../context/BlogContext';
 import CommentSection from './CommentSection';
 import { AuthContext } from '../../context/AuthContext';
+import { Container, Card, Button } from 'react-bootstrap';
 
 const BlogDetails = () => {
   const { id } = useParams();
@@ -17,35 +18,34 @@ const BlogDetails = () => {
   }, [blogs, id]);
 
   const handleDelete = async () => {
-    console.log("Deleting blog with ID:", id);
-    try {
-      await deleteBlog(id);
-      navigate('/posts'); 
-    } catch (error) {
-      console.error("Error deleting blog:", error);
-    }
+    await deleteBlog(id);
+    navigate('/posts');
   };
 
   if (!blog) {
-    return <div></div>;
+    return <div className="text-center mt-5">Loading...</div>;
   }
 
   return (
-    <div className="container">
-      <h1>{blog.title}</h1>
-      <p>{blog.content}</p>
-      <p><strong>Author:</strong> {blog.author.username}</p>
-      <p><strong>Published on:</strong> {new Date(blog.dateCreated).toLocaleString()}</p>
-
-      {user && (user.userId === blog.author.userId || user.isAdmin) && (
-        <>
-          <Link to={`/posts/edit/${id}`}>Edit</Link>
-          <button onClick={handleDelete}>Delete</button>
-        </>
-      )}
-
+    <Container className="mt-5">
+      <Card className="shadow mb-4">
+        <Card.Body>
+          <Card.Title className="text-center fw-bold">{blog.title}</Card.Title>
+          <Card.Text>{blog.content}</Card.Text>
+          <div className="d-flex justify-content-between mt-3">
+            <Card.Text className="text-muted"><strong>Author:</strong> {blog.author.username}</Card.Text>
+            <Card.Text className="text-muted"><strong>Published:</strong> {new Date(blog.dateCreated).toLocaleString()}</Card.Text>
+          </div>
+          {user && (user.userId === blog.author.userId || user.isAdmin) && (
+            <div className="d-flex justify-content-between mt-4">
+              <Link to={`/posts/edit/${id}`} className="btn btn-warning">Edit</Link>
+              <Button variant="danger" onClick={handleDelete}>Delete</Button>
+            </div>
+          )}
+        </Card.Body>
+      </Card>
       <CommentSection blogId={id} comments={blog.comments} />
-    </div>
+    </Container>
   );
 };
 

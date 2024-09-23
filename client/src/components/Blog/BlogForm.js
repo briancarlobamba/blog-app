@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { BlogContext } from '../../context/BlogContext';
+import { Container, Card, Button, Form } from 'react-bootstrap';
 
 const BlogForm = () => {
   const { addBlog, editBlog, blogs } = useContext(BlogContext);
@@ -23,47 +24,53 @@ const BlogForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const blogData = { title, content };
-
     if (id) {
       await editBlog(id, blogData);
-      navigate(`/posts/${id}`);
     } else {
-      const newBlogId = await addBlog(blogData);
-      navigate(`/posts/${newBlogId}`);
+      await addBlog(blogData);
     }
+    navigate('/posts');
   };
 
+  const isFormValid = title.trim() && content.trim();  // Ensure fields are non-empty
+
   return (
-    <div className="container">
-      <h1>{id ? 'Edit Blog' : 'New Blog'}</h1>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="title">Title</label>
-          <input
-            type="text"
-            className="form-control"
-            id="title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="content">Content</label>
-          <textarea
-            className="form-control"
-            id="content"
-            rows="5"
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            required
-          ></textarea>
-        </div>
-        <button type="submit" className="btn btn-primary mt-3">
-          {id ? 'Update' : 'Submit'}
-        </button>
-      </form>
-    </div>
+    <Container className="mt-5">
+      <Card className="shadow p-4">
+        <Card.Title className="text-center fw-bold">{id ? 'Edit Blog' : 'New Blog'}</Card.Title>
+        <Form onSubmit={handleSubmit}>
+          <Form.Group className="mb-3">
+            <Form.Label>Title</Form.Label>
+            <Form.Control 
+              type="text" 
+              value={title} 
+              onChange={e => setTitle(e.target.value)} 
+              required 
+              placeholder="Enter blog title"
+            />
+          </Form.Group>
+          <Form.Group className="mb-4">
+            <Form.Label>Content</Form.Label>
+            <Form.Control 
+              as="textarea" 
+              rows={5} 
+              value={content} 
+              onChange={e => setContent(e.target.value)} 
+              required 
+              placeholder="Write your blog content"
+            />
+          </Form.Group>
+          <Button 
+            variant="primary" 
+            type="submit" 
+            className="w-100" 
+            disabled={!isFormValid}  // Button disabled unless both fields are filled
+          >
+            Save
+          </Button>
+        </Form>
+      </Card>
+    </Container>
   );
 };
 

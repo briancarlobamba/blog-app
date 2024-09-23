@@ -1,51 +1,50 @@
 import React, { useState } from 'react';
-import { addComment } from '../../utils/API'; // Correct path
+import { addComment } from '../../utils/API';
+import { Button, Form } from 'react-bootstrap';
 
 const CommentSection = ({ blogId, comments: initialComments }) => {
   const [newComment, setNewComment] = useState('');
-  const [comments, setComments] = useState(initialComments); // Use local state to manage comments
+  const [comments, setComments] = useState(initialComments);
 
   const handleCommentSubmit = async () => {
-    if (!newComment) return; // Prevent empty comments
+    if (!newComment) return;
 
     try {
-        // Call API to add comment
-        const response = await addComment(blogId, newComment);
-        
-        // The added comment is within response.data.updatedBlog.comments (the last comment)
-        const addedComment = response.data.updatedBlog.comments.slice(-1)[0];
-
-        // Add the new comment to the list of comments
-        setComments(prevComments => [...prevComments, addedComment]);
-        
-        // Clear the input after submission
-        setNewComment('');
+      const response = await addComment(blogId, newComment);
+      const addedComment = response.data.updatedBlog.comments.slice(-1)[0];
+      setComments(prevComments => [...prevComments, addedComment]);
+      setNewComment('');
     } catch (error) {
-        console.error('Error submitting comment:', error);
+      console.error('Error submitting comment:', error);
     }
-};
-
+  };
 
   return (
-    <div>
-      <h3>Comments</h3>
-      <ul style={{ listStyleType: 'none', paddingLeft: 0 }}>
+    <div className="mt-4">
+      <h3 className="fw-bold">Comments</h3>
+      <ul className="list-unstyled">
         {comments.map(comment => (
           <li 
-            key={comment._id}
-            style={{ color: comment.username ? 'black' : 'silver', fontStyle: comment.username ? 'normal' : 'italic' }}
+            key={comment._id} 
+            className="border-bottom py-2"
+            style={{ color: comment.username ? 'black' : 'gray', fontStyle: comment.username ? 'normal' : 'italic' }}
           >
             <strong>{comment.username || 'anonymous user'}: </strong>{comment.comment}
           </li>
         ))}
       </ul>
-
-      <textarea
-        value={newComment}
-        onChange={e => setNewComment(e.target.value)}
-        placeholder="Add a comment"
-      />
-      <button onClick={handleCommentSubmit}>Add Comment</button>
+      <Form className="mt-3">
+        <Form.Group>
+          <Form.Control
+            as="textarea"
+            rows={2}
+            value={newComment}
+            onChange={e => setNewComment(e.target.value)}
+            placeholder="Add a comment"
+          />
+        </Form.Group>
+        <Button onClick={handleCommentSubmit} className="mt-2">Add Comment</Button>
+      </Form>
     </div>
   );
 };
