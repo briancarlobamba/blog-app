@@ -24,12 +24,16 @@ const BlogForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const blogData = { title, content };
+    let blogId;
+
     if (id) {
       await editBlog(id, blogData);
+      blogId = id; // Retain the ID for navigation
     } else {
-      await addBlog(blogData);
+      blogId = await addBlog(blogData); // Assuming addBlog returns the new blog ID
     }
-    navigate('/posts');
+
+    navigate(`/posts/${blogId}`); // Navigate to the newly added or edited post
   };
 
   const isFormValid = title.trim() && content.trim();  // Ensure fields are non-empty
