@@ -14,7 +14,7 @@ const BlogList = () => {
     fetchBlogs();
   }, [getBlogs]);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <div></div>;
 
   return (
     <div className="container">
@@ -22,7 +22,9 @@ const BlogList = () => {
       {blogs.map(blog => (
         <div key={blog._id} className="blog-post">
           <h2>{blog.title}</h2>
-          <p>{blog.content.substring(0, 100)}...</p>
+          <p>{blog.content.substring(0, 200)}...</p>
+          <p><strong>Author:</strong> {blog.author.username}</p>
+          <p><strong>Published on:</strong> {blog.dateCreated}</p>
           <Link to={`/blogs/${blog._id}`}>Read More</Link>
         </div>
       ))}

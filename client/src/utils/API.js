@@ -2,13 +2,12 @@ import axios from 'axios';
 
 // Create an axios instance
 const api = axios.create({
-  baseURL: 'http://localhost:4000',
+  baseURL: 'https://blog-app-r09n.onrender.com',
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
-// Intercept requests to attach authorization token if available
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('authToken');
   if (token) {

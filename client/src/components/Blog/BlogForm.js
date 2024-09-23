@@ -26,11 +26,12 @@ const BlogForm = () => {
 
     if (id) {
       await editBlog(id, blogData);
+      navigate(`/blogs/${id}`); // Redirect to the edited blog's details
     } else {
-      await addBlog(blogData);
+      const newBlogId = await addBlog(blogData); // Get the new blog's ID
+      navigate(`/blogs/${newBlogId}`); // Redirect to the new blog's details
+      return; // Early return to prevent navigating again
     }
-
-    navigate('/');
   };
 
   return (
