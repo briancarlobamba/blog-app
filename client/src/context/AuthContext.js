@@ -29,7 +29,7 @@ const loginUser = async (email, password) => {
       setAuthToken(data.access);
       setUser(jwtDecode(data.access));
       localStorage.setItem('authToken', data.access);
-      navigate('/');
+      navigate('/posts');
     } else {
       throw new Error(data.message || 'Login failed');
     }

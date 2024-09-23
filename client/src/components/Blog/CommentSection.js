@@ -33,7 +33,7 @@ const CommentSection = ({ blogId, comments: initialComments }) => {
         {comments.map(comment => (
           <li 
             key={comment._id}
-            style={{ color: comment.username ? 'black' : 'gray', fontStyle: comment.username ? 'normal' : 'italic' }}
+            style={{ color: comment.username ? 'black' : 'silver', fontStyle: comment.username ? 'normal' : 'italic' }}
           >
             <strong>{comment.username || 'anonymous user'}: </strong>{comment.comment}
           </li>

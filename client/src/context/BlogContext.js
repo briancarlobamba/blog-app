@@ -27,22 +27,21 @@ export const BlogProvider = ({ children }) => {
       const response = await axios.post(
         'https://blog-app-r09n.onrender.com/blogs/addBlog',
         blog,
-        { headers: { Authorization: `Bearer ${authToken}` } }
+        { headers: { Authorization: `Bearer ${authToken}` } } // Fixed template literal
       );
       setBlogs((prevBlogs) => [...prevBlogs, response.data]);
-      return response.data._id; // Return the new blog's ID
+      return response.data._id;
     } catch (error) {
       console.error('Error adding blog:', error);
     }
   };
 
-
   const editBlog = async (id, blog) => {
     try {
       const response = await axios.patch(
-        `https://blog-app-r09n.onrender.com/blogs/updateBlog/${id}`,
+        `https://blog-app-r09n.onrender.com/blogs/updateBlog/${id}`, // Fixed template literal
         blog,
-        { headers: { Authorization: `Bearer ${authToken}` } }
+        { headers: { Authorization: `Bearer ${authToken}` } } // Fixed template literal
       );
       setBlogs(blogs.map(b => (b._id === id ? response.data : b)));
     } catch (error) {
@@ -61,8 +60,29 @@ export const BlogProvider = ({ children }) => {
     }
   };
 
+  const getMyBlogs = async () => {
+    try {
+      const response = await fetch('https://blog-app-r09n.onrender.com/blogs/getMyBlogs', {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${authToken}`
+        }
+      });
+      const data = await response.json();
+      if (response.ok) {
+        return data.blogs; // Return the user's blogs
+      } else {
+        throw new Error(data.message || 'Failed to fetch blogs');
+      }
+    } catch (error) {
+      console.error('Error fetching my blogs:', error);
+      throw error; // Rethrow the error to handle it in MyBlogs
+    }
+  };
+
+
   return (
-    <BlogContext.Provider value={{ blogs, getBlogs, addBlog, editBlog, deleteBlog }}>
+    <BlogContext.Provider value={{ blogs, getBlogs, addBlog, editBlog, deleteBlog, getMyBlogs }}>
       {children}
     </BlogContext.Provider>
   );

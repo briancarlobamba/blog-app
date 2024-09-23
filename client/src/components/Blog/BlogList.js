@@ -25,7 +25,7 @@ const BlogList = () => {
           <p>{blog.content.substring(0, 200)}...</p>
           <p><strong>Author:</strong> {blog.author.username}</p>
           <p><strong>Published on:</strong> {blog.dateCreated}</p>
-          <Link to={`/blogs/${blog._id}`}>Read More</Link>
+          <Link to={`/posts/${blog._id}`}>Read More</Link>
         </div>
       ))}
     </div>

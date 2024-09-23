@@ -14,7 +14,7 @@ const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container">
-        <Link className="navbar-brand" to="/">
+        <Link className="navbar-brand" to="/posts">
           Blog App
         </Link>
         <div className="collapse navbar-collapse">
@@ -22,9 +22,12 @@ const Navbar = () => {
             {user ? (
               <>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/blogs/new">
+                  <Link className="nav-link" to="/posts/new">
                     New Blog
                   </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/my-posts">My Blogs</Link>
                 </li>
                 <li className="nav-item">
                   <span className="nav-link">Hello, {user.username}</span>

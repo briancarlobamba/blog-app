@@ -6,6 +6,7 @@ import BlogDetails from './components/Blog/BlogDetails';
 import BlogForm from './components/Blog/BlogForm';
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
+import MyBlogs from './components/Blog/MyBlogs'; // Import MyBlogs
 import PrivateRoute from './utils/PrivateRoute';
 import { AuthProvider } from './context/AuthContext';
 import { BlogProvider } from './context/BlogContext';
@@ -17,10 +18,11 @@ function App() {
         <BlogProvider>
           <Navbar />
           <Routes>
-            <Route path="/" element={<BlogList />} />
-            <Route path="/blogs/:id" element={<BlogDetails />} />
-            <Route path="/blogs/new" element={<PrivateRoute><BlogForm /></PrivateRoute>} />
-            <Route path="/blogs/edit/:id" element={<PrivateRoute><BlogForm /></PrivateRoute>} />
+            <Route path="/posts" element={<BlogList />} />
+            <Route path="/posts/:id" element={<BlogDetails />} />
+            <Route path="/posts/new" element={<PrivateRoute><BlogForm /></PrivateRoute>} />
+            <Route path="/posts/edit/:id" element={<PrivateRoute><BlogForm /></PrivateRoute>} />
+            <Route path="/my-posts" element={<PrivateRoute><MyBlogs /></PrivateRoute>} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
           </Routes>
