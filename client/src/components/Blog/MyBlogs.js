@@ -33,7 +33,6 @@ const MyBlogs = () => {
     </div>
   );
 
-  // Sort blogs from newest to oldest
   const sortedMyBlogs = [...myBlogs].sort((a, b) => new Date(b.dateCreated) - new Date(a.dateCreated));
 
   return (

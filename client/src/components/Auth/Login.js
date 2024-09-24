@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { Container, Card, Form, Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom'; // Remove useNavigate since it's unused
+import { Link } from 'react-router-dom';
 
 const Login = () => {
   const { loginUser } = useContext(AuthContext);

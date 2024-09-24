@@ -21,7 +21,7 @@ const HomePage = () => {
   useEffect(() => {
     if (blogs.length > 0) {
       const sortedBlogs = [...blogs].sort((a, b) => new Date(b.dateCreated) - new Date(a.dateCreated));
-      setFeaturedPosts(sortedBlogs.slice(0, 3));  // Get the three most recent blogs
+      setFeaturedPosts(sortedBlogs.slice(0, 3));
     }
   }, [blogs]);
 

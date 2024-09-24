@@ -1,8 +1,7 @@
 import axios from 'axios';
 
-// Create an axios instance
 const api = axios.create({
-  baseURL: 'https://blog-app-r09n.onrender.com',
+  baseURL: 'https://blog-app-1-9dqy.onrender.com',
   headers: {
     'Content-Type': 'application/json',
   },
@@ -16,7 +15,6 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-// API Methods
 export const getAllBlogs = () => api.get('/blogs/getBlogs');
 export const getBlogById = (id) => api.get(`/blogs/getBlog/${id}`);
 export const addBlog = (blogData) => api.post('/blogs/addBlog', blogData);
@@ -28,7 +26,6 @@ export const deleteComment = (id, commentId) => api.delete(`/blogs/deleteComment
   data: { commentId }
 });
 
-// Authentication
 export const loginUser = (credentials) => api.post('/users/login', credentials);
 export const registerUser = (userData) => api.post('/users/register', userData);
 

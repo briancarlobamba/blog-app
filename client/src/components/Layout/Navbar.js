@@ -14,7 +14,7 @@ const Navbar = () => {
 
   const isHomePage = location.pathname === '/';
   const isNewPostPage = location.pathname === '/posts/new';
-  const isMyPostsPage = location.pathname === '/my-posts'; // Adjust this path based on your actual route
+  const isMyPostsPage = location.pathname === '/my-posts';
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top">

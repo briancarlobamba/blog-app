@@ -28,15 +28,15 @@ const BlogForm = () => {
 
     if (id) {
       await editBlog(id, blogData);
-      blogId = id; // Retain the ID for navigation
+      blogId = id; 
     } else {
-      blogId = await addBlog(blogData); // Assuming addBlog returns the new blog ID
+      blogId = await addBlog(blogData); 
     }
 
-    navigate(`/posts/${blogId}`); // Navigate to the newly added or edited post
+    navigate(`/posts/${blogId}`); 
   };
 
-  const isFormValid = title.trim() && content.trim();  // Ensure fields are non-empty
+  const isFormValid = title.trim() && content.trim();  
 
   return (
     <Container className="mt-5">
@@ -68,7 +68,7 @@ const BlogForm = () => {
             variant="primary" 
             type="submit" 
             className="w-100" 
-            disabled={!isFormValid}  // Button disabled unless both fields are filled
+            disabled={!isFormValid}  
           >
             Save
           </Button>
