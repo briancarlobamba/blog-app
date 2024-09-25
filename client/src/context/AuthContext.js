@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }) => {
 
 const loginUser = async (email, password) => {
   try {
-    const response = await fetch('https://blog-app-1-9dqy.onrender.com/users/login', {
+    const response = await fetch('https://blog-app-2-v2of.onrender.com/users/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

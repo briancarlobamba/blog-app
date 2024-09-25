@@ -23,7 +23,7 @@ const BlogDetails = () => {
   };
 
   if (!blog) {
-    return <div className="text-center mt-5">Loading...</div>;
+    return <div className="text-center mt-5"></div>;
   }
 
   return (

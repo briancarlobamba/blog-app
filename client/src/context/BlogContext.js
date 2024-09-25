@@ -15,7 +15,7 @@ export const BlogProvider = ({ children }) => {
 
   const getBlogs = async () => {
     try {
-      const response = await axios.get('https://blog-app-1-9dqy.onrender.com/blogs/getBlogs');
+      const response = await axios.get('https://blog-app-2-v2of.onrender.com/blogs/getBlogs');
       setBlogs(response.data.blogs);
     } catch (error) {
       console.error('Error fetching blogs:', error);
@@ -25,7 +25,7 @@ export const BlogProvider = ({ children }) => {
   const addBlog = async (blog) => {
     try {
       const response = await axios.post(
-        'https://blog-app-1-9dqy.onrender.com/blogs/addBlog',
+        'https://blog-app-2-v2of.onrender.com/blogs/addBlog',
         blog,
         { headers: { Authorization: `Bearer ${authToken}` } } 
       );
@@ -39,7 +39,7 @@ export const BlogProvider = ({ children }) => {
   const editBlog = async (id, blog) => {
     try {
       const response = await axios.patch(
-        `https://blog-app-1-9dqy.onrender.com/blogs/updateBlog/${id}`, 
+        `https://blog-app-2-v2of.onrender.com/blogs/updateBlog/${id}`, 
         blog,
         { headers: { Authorization: `Bearer ${authToken}` } } 
       );
@@ -51,7 +51,7 @@ export const BlogProvider = ({ children }) => {
 
   const deleteBlog = async (id) => {
     try {
-      await axios.delete(`https://blog-app-1-9dqy.onrender.com/blogs/deleteBlog/${id}`, {
+      await axios.delete(`https://blog-app-2-v2of.onrender.com/blogs/deleteBlog/${id}`, {
         headers: { Authorization: `Bearer ${authToken}` },
       });
       setBlogs(blogs.filter(b => b._id !== id));
@@ -62,7 +62,7 @@ export const BlogProvider = ({ children }) => {
 
   const getMyBlogs = async () => {
     try {
-      const response = await fetch('https://blog-app-1-9dqy.onrender.com/blogs/getMyBlogs', {
+      const response = await fetch('https://blog-app-2-v2of.onrender.com/blogs/getMyBlogs', {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${authToken}`
